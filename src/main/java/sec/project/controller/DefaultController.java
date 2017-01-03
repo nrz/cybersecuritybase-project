@@ -9,7 +9,7 @@ import sec.project.domain.Signup;
 import sec.project.repository.SignupRepository;
 
 @Controller
-public class SignupController {
+public class DefaultController {
 
     @Autowired
     private SignupRepository signupRepository;
