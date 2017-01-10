@@ -26,6 +26,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (username == null) {
+            throw new UsernameNotFoundException("username must not be null!");
+        }
+
+        if (username.isEmpty()) {
+            throw new UsernameNotFoundException("username must not be an empty string!");
+        }
+
         if (!this.accountDetails.containsKey(username)) {
             throw new UsernameNotFoundException("No such user: " + username);
         }
