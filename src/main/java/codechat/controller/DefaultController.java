@@ -1,12 +1,12 @@
-package sec.project.controller;
+package codechat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sec.project.domain.Friend;
-import sec.project.repository.FriendRepository;
+import codechat.domain.Friend;
+import codechat.repository.FriendRepository;
 
 @Controller
 public class DefaultController {

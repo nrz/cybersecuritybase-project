@@ -1,7 +1,7 @@
-package sec.project.repository;
+package codechat.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import sec.project.domain.Friend;
+import codechat.domain.Friend;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 

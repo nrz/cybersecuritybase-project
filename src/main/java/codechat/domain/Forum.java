@@ -1,4 +1,4 @@
-package sec.project.domain;
+package codechat.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;

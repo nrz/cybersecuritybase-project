@@ -1,4 +1,4 @@
-package sec.project;
+package codechat;
 
 import org.junit.Before;
 import org.junit.Test;
