@@ -5,11 +5,19 @@
     </head>
     <body>
 
-        <h1>Sign up to the site using this form</h1>
+        <h1>Login to the site using this form</h1>
 
-        <form action="#" th:action="@{/form}" method="POST">
+        <form action="#" th:action="@{/login}" method="POST">
             <div><label>Username<input type="text" name="username" id="username"/></label></div>
             <div><label>Password<input type="text" name="password" id="password"/></label></div>
+            <div><label><button type="submit">Login to the site</button></label></div>
+        </form>
+
+        <h1>Create a new user account using this form</h1>
+
+        <form action="#" th:action="@{/newuser}" method="POST">
+            <div><label>Username<input type="text" name="new_username" id="new_username"/></label></div>
+            <div><label>Password<input type="text" name="new_password" id="new_password"/></label></div>
             <div><label><button type="submit">Create user account</button></label></div>
         </form>
 
