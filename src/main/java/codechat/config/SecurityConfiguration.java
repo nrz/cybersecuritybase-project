@@ -22,9 +22,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // no real security at the moment
         http.authorizeRequests()
-                .anyRequest().permitAll();
+                .anyRequest().authenticated() // Authenticated users are authorized to do any requests.
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll() // Login is authorized for all.
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .permitAll(); // Logout is authorized for all.
     }
 
     @Autowired
