@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class Friend extends AbstractPersistable<Long> {
+public class Person extends AbstractPersistable<Long> {
 
     @NotBlank(message = "Give a username")
     private String username;
@@ -18,27 +18,27 @@ public class Friend extends AbstractPersistable<Long> {
     @NotBlank(message = "Give a password")
     private String password;
 
-    // Each Friend may be an admin in many Forums and each Forum may have many admins.
+    // Each Person may be an admin in many Forums and each Forum may have many admins.
     @ManyToMany
     Collection<Forum> adminForums;
 
-    // Each Friend may belong to many Forums and each Forum may have many Users.
+    // Each Person may belong to many Forums and each Forum may have many Persons.
     @ManyToMany
     Collection<Forum> memberForums;
 
-    // Each Friend may belong to many FriendGroups, that is, s/he can be
-    // a friend for many other Users.
+    // Each Person may belong to many FriendGroups, that is, s/he can be
+    // a friend for many other Persons.
     @ManyToMany(mappedBy = "friendsTo", fetch = FetchType.EAGER)
-    private Collection<Friend> myFriends;
+    private Collection<Person> myFriends;
 
     @ManyToMany
-    private Collection<Friend> friendsTo;
+    private Collection<Person> friendsTo;
 
-    public Friend() {
+    public Person() {
         this("", null);
     }
 
-    public Friend(String username, String password) {
+    public Person(String username, String password) {
         this.username = username;
         this.password = password;
         this.adminForums = new ArrayList<>();
@@ -88,25 +88,25 @@ public class Friend extends AbstractPersistable<Long> {
         this.memberForums = forums;
     }
 
-    public Collection<Friend> getMyFriends() {
+    public Collection<Person> getMyFriends() {
         if (this.myFriends == null) {
             this.myFriends = new ArrayList<>();
         }
         return this.myFriends;
     }
 
-    public void setMyFriends(List<Friend> friends) {
+    public void setMyFriends(List<Person> friends) {
         this.myFriends = friends;
     }
 
-    public Collection<Friend> getFriendsTo() {
+    public Collection<Person> getFriendsTo() {
         if (this.friendsTo == null) {
             this.friendsTo = new ArrayList<>();
         }
         return this.friendsTo;
     }
 
-    public void setFriendsTo(List<Friend> friends) {
+    public void setFriendsTo(List<Person> friends) {
         this.friendsTo = friends;
     }
 }

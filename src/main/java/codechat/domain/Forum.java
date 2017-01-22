@@ -21,11 +21,11 @@ public class Forum extends AbstractPersistable<Long> {
 
     // Each Forum must have at least one admin.
     @ManyToMany(mappedBy = "adminForums")
-    private Collection<Friend> forumAdmins;
+    private Collection<Person> forumAdmins;
 
     // Each Forum may have any number of non-admin members.
     @ManyToMany(mappedBy = "memberForums")
-    private Collection<Friend> forumMembers;
+    private Collection<Person> forumMembers;
 
     @OneToMany
     private List<Message> messages;
@@ -61,33 +61,33 @@ public class Forum extends AbstractPersistable<Long> {
         this.messages = messages;
     }
 
-    public Collection<Friend> getForumAdmins() {
+    public Collection<Person> getForumAdmins() {
         if (this.forumAdmins == null) {
             this.forumAdmins = new ArrayList<>();
         }
         return this.forumAdmins;
     }
 
-    public void setForumAdmins(List<Friend> forumAdmins) {
+    public void setForumAdmins(List<Person> forumAdmins) {
         this.forumAdmins = forumAdmins;
     }
 
-    public void addForumAdmin(Friend admin) {
+    public void addForumAdmin(Person admin) {
         this.forumMembers.add(admin);
     }
 
-    public Collection<Friend> getForumMembers() {
+    public Collection<Person> getForumMembers() {
         if (this.forumMembers == null) {
             this.forumMembers = new ArrayList<>();
         }
         return this.forumMembers;
     }
 
-    public void setForumMembers(List<Friend> forumMembers) {
+    public void setForumMembers(List<Person> forumMembers) {
         this.forumMembers = forumMembers;
     }
 
-    public void addForumMember(Friend member) {
+    public void addForumMember(Person member) {
         this.forumMembers.add(member);
     }
 }

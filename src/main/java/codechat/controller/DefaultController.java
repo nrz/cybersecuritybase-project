@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import codechat.domain.Friend;
-import codechat.repository.FriendRepository;
+import codechat.domain.Person;
+import codechat.repository.PersonRepository;
 
 @Controller
 public class DefaultController {
 
     @Autowired
-    private FriendRepository userRepository;
+    private PersonRepository personRepository;
 
     @RequestMapping("*")
     public String defaultMapping() {
@@ -26,7 +26,7 @@ public class DefaultController {
 
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String submitForm(@RequestParam String username, @RequestParam String password) {
-        this.userRepository.save(new Friend(username, password));
+        this.personRepository.save(new Person(username, password));
         return "done";
     }
 }
