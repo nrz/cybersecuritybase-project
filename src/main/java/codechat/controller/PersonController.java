@@ -53,11 +53,9 @@ public class PersonController {
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public String newPerson(Model model,
             @Valid @ModelAttribute Person person,
-            BindingResult bindingResult,
-            @RequestParam String newUsername,
-            @RequestParam String newPassword) {
+            BindingResult bindingResult) {
         // Create a new Person.
-        return this.personService.addUser(model, person, bindingResult, newUsername, newPassword);
+        return this.personService.addUser(model, person, bindingResult);
     }
 
     private Person getAuthenticatedPerson() {
