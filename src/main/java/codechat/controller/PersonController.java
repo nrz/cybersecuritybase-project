@@ -15,7 +15,7 @@ public class PersonController {
     @Autowired
     private PersonRepository personRepository;
 
-    @RequestMapping(value = "/person", method = RequestMethod.GET)
+    @RequestMapping(value = "/persons", method = RequestMethod.GET)
     public String user() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -25,15 +25,16 @@ public class PersonController {
         }
 
         Long id = 0L; // TODO: FIXME!
-        return "redirect:/user/" + id;
+        return "redirect:/persons/" + id;
     }
 
-    @RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
-    public String userpage() {
+    @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
+    public String userpage(@PathVariable Long id) {
+        this.personRepository.findOne(id);
         return "user";
     }
 
-    @RequestMapping(value = "/person", method = RequestMethod.POST)
+    @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public String newPerson(@RequestParam String name, @RequestParam String password) {
         this.personRepository.save(new Person(name, password));
         return "done";
