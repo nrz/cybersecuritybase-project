@@ -38,10 +38,4 @@ public class PersonController {
         this.personRepository.save(new Person(name, password));
         return "done";
     }
-
-    @RequestMapping(value = "/person/{id}/newperson", method = RequestMethod.POST)
-    public String newPerson(@PathVariable Long id, @RequestParam String name, @RequestParam String password) {
-        this.personRepository.save(new Person(name, password));
-        return "done";
-    }
 }
