@@ -33,5 +33,4 @@ public class ForumController {
         // TODO: Redirected to the newly created forum.
         return "";
     }
-
 }
