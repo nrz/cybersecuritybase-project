@@ -25,28 +25,29 @@ public class PersonController {
     @Autowired
     private PersonRepository personRepository;
 
-    @RequestMapping(value = "/persons", method = RequestMethod.GET)
-    public String user() {
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String userMainpage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null || !auth.isAuthenticated()) {
-            // Invalid authentication or is not authenticated, so redirect to /main .
-            return "redirect:/main";
+            // Invalid authentication or is not authenticated, so redirect to /logout .
+            return "redirect:/logout";
         }
 
         Person person = this.getAuthenticatedPerson();
 
         if (person == null || person.getId() == null) {
-            // Invalid authentication or is not authenticated, so redirect to /main .
-            return "redirect:/main";
+            // Invalid authentication or is not authenticated, so redirect to /logout .
+            return "redirect:/logout";
         }
         return "redirect:/persons/" + person.getId();
     }
 
     @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
-    public String userpage(@PathVariable Long id) {
-        this.personRepository.findOne(id);
-        return "user";
+    public String userpage(Model model, @PathVariable Long id) {
+        Person person = this.personRepository.findOne(id);
+        model.addAttribute("person", person);
+        return "person";
     }
 
     @RequestMapping(value = "/persons", method = RequestMethod.POST)

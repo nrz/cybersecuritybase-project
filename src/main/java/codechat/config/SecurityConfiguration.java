@@ -32,13 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/persons")
+                .defaultSuccessUrl("/main")
                 .failureUrl("/invalidlogin")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/main");
+                .logoutSuccessUrl("/login");
     }
 
     @Autowired

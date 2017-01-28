@@ -40,11 +40,11 @@ public class DefaultController {
 
     @RequestMapping("*")
     public String defaultMapping() {
-        return "redirect:/persons";
+        return "redirect:/main";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String loadForm() {
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginForm() {
         return "form";
     }
 
@@ -52,10 +52,5 @@ public class DefaultController {
     public String invalidLogin() {
         // Login failed, display a new login form.
         return "loginform";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginForm() {
-        return "form";
     }
 }
