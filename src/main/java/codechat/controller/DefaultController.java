@@ -24,6 +24,11 @@ public class DefaultController {
         return "form";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginForm() {
+        return "form";
+    }
+
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String submitForm(@RequestParam String username, @RequestParam String password) {
         this.personRepository.save(new Person(username, password));
