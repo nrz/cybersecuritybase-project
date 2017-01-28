@@ -8,9 +8,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import codechat.domain.Person;
 import codechat.repository.PersonRepository;
+import codechat.service.PersonService;
+import javax.validation.Valid;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 public class PersonController {
+
+    @Autowired
+    private PersonService personService;
 
     @Autowired
     private PersonRepository personRepository;
@@ -24,8 +32,13 @@ public class PersonController {
             return "redirect:/main";
         }
 
-        Long id = 0L; // TODO: FIXME!
-        return "redirect:/persons/" + id;
+        Person person = this.getAuthenticatedPerson();
+
+        if (person == null || person.getId() == null) {
+            // Invalid authentication or is not authenticated, so redirect to /main .
+            return "redirect:/main";
+        }
+        return "redirect:/persons/" + person.getId();
     }
 
     @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
@@ -35,8 +48,20 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
-    public String newPerson(@RequestParam String name, @RequestParam String password) {
-        this.personRepository.save(new Person(name, password));
-        return "done";
+    public String newPerson(Model model,
+            @Valid @ModelAttribute Person person,
+            BindingResult bindingResult,
+            @RequestParam String newUsername,
+            @RequestParam String newPassword) {
+        // Create a new Person.
+        return this.personService.addUser(model, person, bindingResult, newUsername, newPassword);
+    }
+
+    private Person getAuthenticatedPerson() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        return this.personRepository.findByUsername(auth.getName());
     }
 }

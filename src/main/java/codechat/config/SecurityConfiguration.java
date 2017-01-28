@@ -22,21 +22,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Enable CSRF (for h2 console!). This is a vulnerability!
+        http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
+
         http.authorizeRequests()
-                .anyRequest().authenticated() // Authenticated users are authorized to do any requests.
-                .and()
-                .formLogin()
+                .antMatchers("/h2-console/*").permitAll()
+                .anyRequest().authenticated(); // Authenticated users are authorized to do any requests.
+
+        http.formLogin()
                 .loginPage("/login")
-                .permitAll() // Login is authorized for all.
+                .defaultSuccessUrl("/persons")
+                .failureUrl("/invalidlogin")
+                .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .permitAll(); // Logout is authorized for all.
+                .logoutSuccessUrl("/main");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
