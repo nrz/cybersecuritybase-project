@@ -10,7 +10,7 @@
             <span th:text="${error}">Error text</span>
         </div>
 
-        <form action="#" th:action="@{/main}" method="POST">
+        <form action="#" th:action="@{/main}" th:object="${person}" method="POST">
             <div><label>Username<input type="text" th:field="*{username}" name="username" id="username" autocomplete="off"/></label></div>
             <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</span>
             <br/>
@@ -19,7 +19,7 @@
             <div><label><button type="submit">Create a user account</button></label></div>
         </form>
         <br/>
-        <a th:href="@{/etusivu}"><button type="submit">Back to main page</button></a>
+        <a th:href="@{/main}"><button type="submit">Back to main page</button></a>
         <br/>
     </body>
 </html>

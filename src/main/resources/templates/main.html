@@ -23,9 +23,11 @@
         <div sec:authorize="!isAuthenticated()">
             <h1>Create a new user account using this form</h1>
 
-            <form action="#" th:action="@{/main}" method="POST">
-                <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
-                <div><label>Password<input type="password" name="password" id="password" autocomplete="off"/></label></div>
+            <form action="#" th:action="@{/main}" th:object="${person}" method="POST">
+                <div><label>Username<input type="text" th:field="*{username}" name="username" autocomplete="off"/></label></div>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</span>
+                <div><label>Password<input type="password" th:field="*{password}" name="password" autocomplete="off"/></label></div>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</span>
                 <div><label><button type="submit">Create user account</button></label></div>
             </form>
         </div>
