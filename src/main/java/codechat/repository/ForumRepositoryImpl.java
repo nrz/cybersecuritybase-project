@@ -16,12 +16,17 @@ public class ForumRepositoryImpl implements ForumRepositoryCustom {
     private PersonRepository personRepository;
 
     @Override
-    public Collection<Forum> findByUsername(String username) {
-        Person person = this.personRepository.findByUsername(username);
+    public Collection<Forum> findByPerson(Person person) {
         if (person == null) {
             return new ArrayList<>();
         }
 
         return this.forumRepository.findAll().stream().filter(forum -> forum.getForumMembers().contains(person)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Forum> findByUsername(String username) {
+        Person person = this.personRepository.findByUsername(username);
+        return this.findByPerson(person);
     }
 }
