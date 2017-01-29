@@ -16,7 +16,7 @@ public class ForumRepositoryImpl implements ForumRepositoryCustom {
     private PersonRepository personRepository;
 
     @Override
-    public Collection<Forum> FindByUsername(String username) {
+    public Collection<Forum> findByUsername(String username) {
         Person person = this.personRepository.findByUsername(username);
         if (person == null) {
             return new ArrayList<>();
