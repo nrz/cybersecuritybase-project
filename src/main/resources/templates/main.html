@@ -14,7 +14,9 @@
                 <ul>
                     <li th:each="forum : ${forums}">
                         <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
-                        <span th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</span>
+                        <ul>
+                            <li th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</li>
+                        </ul>
                     </li>
                 </ul>
             </div>
