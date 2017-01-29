@@ -6,8 +6,8 @@
     </head>
 
     <body>
-        <div sec:authorize="isAuthenticated()">
-            <span>You are logged in Codechat as </span><span sec:authentication="name" style="font-weight: bold">username!</span>
+        <div>
+            <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
         </div>
 
         <div sec:authorize="!isAuthenticated()">
