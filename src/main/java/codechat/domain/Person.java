@@ -18,6 +18,8 @@ public class Person extends AbstractPersistable<Long> {
     @NotBlank(message = "Give a password")
     private String password;
 
+    private String userRole;
+
     // Each Person may be an admin in many Forums and each Forum may have many admins.
     @ManyToMany
     Collection<Forum> adminForums;
@@ -108,5 +110,13 @@ public class Person extends AbstractPersistable<Long> {
 
     public void setFriendsTo(List<Person> friends) {
         this.friendsTo = friends;
+    }
+
+    public String getUserRole() {
+        return this.userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

@@ -39,6 +39,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Set a password!");
         }
 
+        String userRole = person.getUserRole();
+
         return new org.springframework.security.core.userdetails.User(
                 username,
                 password,
@@ -46,6 +48,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                Arrays.asList(new SimpleGrantedAuthority("USER")));
+                Arrays.asList(new SimpleGrantedAuthority(userRole)));
     }
 }
