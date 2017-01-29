@@ -71,7 +71,10 @@ public class Forum extends AbstractPersistable<Long> {
     }
 
     public void addForumAdmin(Person admin) {
-        this.forumMembers.add(admin);
+        if (this.forumAdmins == null) {
+            this.forumAdmins = new ArrayList<>();
+        }
+        this.forumAdmins.add(admin);
     }
 
     public Collection<Person> getForumMembers() {
