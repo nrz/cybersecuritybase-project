@@ -16,7 +16,7 @@ public class ForumController {
     @Autowired
     private ForumRepository forumRepository;
 
-    @RequestMapping(value = "/forum/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/forums/{id}", method = RequestMethod.GET)
     public String getForum(Model model, @PathVariable Long id) {
         // Forum page.
         Forum forum = this.forumRepository.findOne(id);
@@ -24,7 +24,7 @@ public class ForumController {
         return "forum";
     }
 
-    @RequestMapping(value = "/forum", method = RequestMethod.POST)
+    @RequestMapping(value = "/forums", method = RequestMethod.POST)
     public String addForum(@RequestParam String forumName) {
         // Create new forum.
         Forum forum = new Forum(forumName);
