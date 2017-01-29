@@ -10,10 +10,23 @@
             <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
             <br/>
 
-            <div th:if="${forums != null)" th:each="forum : ${forums}">
-                <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
-                <span th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</span>
+            <div th:if="${forums != null}">
+                <ul>
+                    <li th:each="forum : ${forums}">
+                        <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
+                        <span th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</span>
+                    </li>
+                </ul>
             </div>
+            <br/>
+            <h1>Create a new forum using this form</h1>
+
+            <form action="#" th:action="@{/forums}" method="POST">
+                <div><label>Forum name<input type="text" name="name" autocomplete="off"/></label></div>
+                <div><label>Forum topic<input type="text" name="topic" autocomplete="off"/></label></div>
+                <div><label><button type="submit">Create forum</button></label></div>
+            </form>
+            <br/>
 
             <div>
                 <form action="#" th:action="@{/logout}" method="POST">
