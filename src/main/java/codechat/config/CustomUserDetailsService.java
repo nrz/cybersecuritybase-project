@@ -29,11 +29,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         Person person = this.personRepository.findByUsername(username);
-        String password = person.getPassword();
 
         if (person == null) {
             throw new UsernameNotFoundException("No such user: " + username);
         }
+
+        String password = person.getPassword();
 
         if (password == null || password.equals("")) {
             throw new UsernameNotFoundException("Set a password!");
