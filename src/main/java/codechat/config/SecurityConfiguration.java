@@ -26,9 +26,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
 
+        // Person pages only for authenticated users.
         http.authorizeRequests()
-                .antMatchers("/h2-console/*").permitAll()
-                .anyRequest().authenticated(); // Authenticated users are authorized to do any requests.
+                .antMatchers("/persons/**").hasAnyAuthority("USER");
 
         http.formLogin()
                 .loginPage("/login")
