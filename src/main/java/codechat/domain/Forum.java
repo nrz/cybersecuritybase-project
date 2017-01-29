@@ -89,6 +89,9 @@ public class Forum extends AbstractPersistable<Long> {
     }
 
     public void addForumMember(Person member) {
+        if (this.forumMembers == null) {
+            this.forumMembers = new ArrayList<>();
+        }
         this.forumMembers.add(member);
     }
 
