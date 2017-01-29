@@ -90,4 +90,15 @@ public class Forum extends AbstractPersistable<Long> {
     public void addForumMember(Person member) {
         this.forumMembers.add(member);
     }
+
+    public String getTopic() {
+        if (this.topic == null) {
+            this.topic = "";
+        }
+        return this.topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 }
