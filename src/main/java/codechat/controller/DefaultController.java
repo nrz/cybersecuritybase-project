@@ -1,14 +1,14 @@
 package codechat.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import codechat.domain.Person;
 import codechat.repository.PersonRepository;
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Profile("default")
 @Controller
@@ -45,14 +45,14 @@ public class DefaultController {
         return "redirect:/main";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginForm() {
-        return "form";
-    }
-
     @RequestMapping(value = "/invalidlogin", method = RequestMethod.GET)
     public String invalidLogin() {
         // Login failed, display a new login form.
         return "loginform";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginForm() {
+        return "form";
     }
 }
