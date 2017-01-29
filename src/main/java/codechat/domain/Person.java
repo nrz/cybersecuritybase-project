@@ -113,6 +113,9 @@ public class Person extends AbstractPersistable<Long> {
     }
 
     public String getUserRole() {
+        if (this.userRole == null) {
+            this.userRole = "";
+        }
         return this.userRole;
     }
 

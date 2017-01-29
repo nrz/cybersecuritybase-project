@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Codechat registration form</title>
+    </head>
+    <body>
+
+        <h1>Please check your username and password</h1>
+        <div th:each="error : ${errors}">
+            <span th:text="${error}">Error text</span>
+        </div>
+
+        <form action="#" th:action="@{/main}" method="POST">
+            <div><label>Username<input type="text" th:field="*{username}" name="username" id="username" autocomplete="off"/></label></div>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</span>
+            <br/>
+            <div><label>Password<input type="password" th:field="*{password}" name="password" id="password" autocomplete="off"/></label></div>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</span>
+            <div><label><button type="submit">Create a user account</button></label></div>
+        </form>
+        <br/>
+        <a th:href="@{/etusivu}"><button type="submit">Back to main page</button></a>
+        <br/>
+    </body>
+</html>

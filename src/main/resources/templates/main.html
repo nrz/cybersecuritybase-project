@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Welcome to Codechat</title>
+    </head>
+
+    <body>
+        <div sec:authorize="isAuthenticated()">
+            <span>You are logged in Codechat as </span><span sec:authentication="name" style="font-weight: bold">username!</span>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+            <h1>Login to the site using this form</h1>
+
+            <form action="#" th:action="@{/login}" method="POST">
+                <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
+                <div><label>Password<input type="password" name="password" id="password" autocomplete="off"/></label></div>
+                <div><label><button type="submit">Login to the site</button></label></div>
+            </form>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+            <h1>Create a new user account using this form</h1>
+
+            <form action="#" th:action="@{/main}" method="POST">
+                <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
+                <div><label>Password<input type="password" name="password" id="password" autocomplete="off"/></label></div>
+                <div><label><button type="submit">Create user account</button></label></div>
+            </form>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript">
+            function getData(identifier) {
+                return document.getElementById(identifier).value;
+            }
+
+            function loginformOk()
+            {
+                var username = getData("username");
+                var password = getData("password");
+
+                if (username) {
+                    if (password) {
+                        // OK.
+                        return true;
+                    }
+                }
+
+                var errorTextElement = document.getElementById("errortextelement");
+                var oldErrorTextSection = errorTextElement.children[0];
+                var errorTextParagraph = document.createElement("p");
+                var errorTextContent = document.createTextNode("The following errors were found while logging in:");
+                errorTextParagraph.appendChild(errorTextContent);
+                errorTextElement.replaceChild(errorTextParagraph, oldErrorTextSection);
+
+                var errorListElement = document.getElementById("errorlistelement");
+                var oldErrorList = errorListElement.children[0];
+                var errorList = document.createElement("ul");
+
+                var areThereErrorsInUsername = 0;
+
+                if (!username)
+                {
+                    var usernameErrorElement = document.createElement("li");
+                    var usernameErrorText = document.createTextNode("Username must be given.");
+                    usernameErrorElement.appendChild(usernameErrorText);
+                    errorList.appendChild(usernameErrorElement);
+
+                    areThereErrorsInUsername = 1;
+                    document.getElementById("username").focus();
+                }
+
+                if (!password)
+                {
+                    var passwordErrorElement = document.createElement("li");
+                    var passwordErrorText = document.createTextNode("Password must be given.");
+                    passwordErrorElement.appendChild(passwordErrorText);
+                    errorList.appendChild(passwordErrorElement);
+
+                    if (areThereErrorsInUsername === 0) {
+                        document.getElementById("password").focus();
+                    }
+                }
+                errorListElement.replaceChild(errorList, oldErrorList);
+
+                return false;
+            }
+        </script>
+    </body>
+</html>
