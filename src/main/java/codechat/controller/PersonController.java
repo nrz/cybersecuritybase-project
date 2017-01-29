@@ -1,6 +1,7 @@
 package codechat.controller;
 
 import codechat.domain.Person;
+import codechat.repository.ForumRepository;
 import codechat.service.PersonService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private ForumRepository forumRepository;
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String mainPage(Model model, @ModelAttribute Person person) {
         if (this.personService.getAuthenticatedPerson() != null) {
             Person authenticatedPerson = this.personService.getAuthenticatedPerson();
             model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
             model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
+            model.addAttribute("forums", this.forumRepository.findByPerson(authenticatedPerson));
         }
         return "main";
     }
