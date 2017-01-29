@@ -10,7 +10,7 @@
             <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
         </div>
 
-        <div sec:authorize="!isAuthenticated()">
+        <div th:if="${loggedInUser == null}">
             <h1>Login to the site using this form</h1>
 
             <form action="#" th:action="@{/login}" method="POST">
@@ -20,7 +20,7 @@
             </form>
         </div>
 
-        <div sec:authorize="!isAuthenticated()">
+        <div th:if="${loggedInUser == null}">
             <h1>Create a new user account using this form</h1>
 
             <form action="#" th:action="@{/main}" th:object="${person}" method="POST">
