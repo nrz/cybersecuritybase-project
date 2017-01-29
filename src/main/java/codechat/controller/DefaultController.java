@@ -1,7 +1,10 @@
 package codechat.controller;
 
+import codechat.domain.Forum;
 import codechat.domain.Person;
+import codechat.repository.ForumRepository;
 import codechat.repository.PersonRepository;
+import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +23,9 @@ public class DefaultController {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private ForumRepository forumRepository;
+
     @PostConstruct
     public void init() {
         if (this.personRepository.findByUsername("user1") == null) {
@@ -29,6 +35,13 @@ public class DefaultController {
             user1.setPassword(this.passwordEncoder.encode("foo"));
             user1.setUserRole("USER");
             this.personRepository.save(user1);
+
+            Forum forum1 = new Forum();
+            forum1.setName("Best words.");
+            forum1.setTopic("Only best words. Big words. Great words. Words are best.");
+            forum1.setForumAdmins(Arrays.asList(user1));
+            forum1.setForumMembers(Arrays.asList(user1));
+            this.forumRepository.save(forum1);
         }
 
         if (this.personRepository.findByUsername("user2") == null) {
