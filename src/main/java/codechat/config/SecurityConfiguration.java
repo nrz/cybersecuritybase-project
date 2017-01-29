@@ -30,6 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/persons/**").hasAnyAuthority("USER");
 
+        // Forum pages only for authenticated users.
+        http.authorizeRequests()
+                .antMatchers("/forums/**").hasAnyAuthority("USER");
+
         http.formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/main")
