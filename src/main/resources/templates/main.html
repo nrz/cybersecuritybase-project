@@ -6,8 +6,14 @@
     </head>
 
     <body>
-        <div>
+        <div th:if="${loggedInUser != null}">
             <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
+
+            <div>
+                <form action="#" th:action="@{/logout}" method="POST">
+                    <div><label><button type="submit">Logout</button></label></div>
+                </form>
+            </div>
         </div>
 
         <div th:if="${loggedInUser == null}">
