@@ -102,6 +102,10 @@ public class Person extends AbstractPersistable<Long> {
         this.adminForums = forums;
     }
 
+    public void addAdminForum(Forum forum) {
+        this.adminForums.add(forum);
+    }
+
     public Collection<Forum> getMemberForums() {
         if (this.memberForums == null) {
             this.memberForums = new ArrayList<>();
@@ -111,6 +115,10 @@ public class Person extends AbstractPersistable<Long> {
 
     public void setMemberForums(List<Forum> forums) {
         this.memberForums = forums;
+    }
+
+    public void addMemberForum(Forum forum) {
+        this.memberForums.add(forum);
     }
 
     public Collection<Person> getMyFriends() {

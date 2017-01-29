@@ -6,14 +6,12 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 public class Forum extends AbstractPersistable<Long> {
 
-    // Each Forum must have a name.
-    @NotBlank(message = "Give a name for the forum")
+    // Each Forum may have a name.
     private String name;
 
     // Each Forum may have a topic.
