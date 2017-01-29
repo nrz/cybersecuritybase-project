@@ -8,6 +8,12 @@
     <body>
         <div th:if="${loggedInUser != null}">
             <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
+            <br/>
+
+            <div th:if="${forums != null)" th:each="forum : ${forums}">
+                <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
+                <span th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</span>
+            </div>
 
             <div>
                 <form action="#" th:action="@{/logout}" method="POST">
