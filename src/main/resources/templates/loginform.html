@@ -8,8 +8,8 @@
         <h1>Please check your username and password</h1>
 
         <form action="#" th:action="@{/login}" method="POST">
-            <div><label>Username<input type="text" name="username" id="username"/></label></div>
-            <div><label>Password<input type="text" name="password" id="password"/></label></div>
+            <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
+            <div><label>Password<input type="text" name="password" id="password" autocomplete="off"/></label></div>
             <div><label><button type="submit">Login to the site</button></label></div>
         </form>
 
