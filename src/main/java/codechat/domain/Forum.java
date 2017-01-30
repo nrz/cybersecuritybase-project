@@ -59,6 +59,13 @@ public class Forum extends AbstractPersistable<Long> {
         this.messages = messages;
     }
 
+    public void addMessage(Message message) {
+        if (this.messages == null) {
+            this.messages = new ArrayList<>();
+        }
+        this.messages.add(message);
+    }
+
     public Collection<Person> getForumAdmins() {
         if (this.forumAdmins == null) {
             this.forumAdmins = new ArrayList<>();
