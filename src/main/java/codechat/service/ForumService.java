@@ -1,8 +1,10 @@
 package codechat.service;
 
 import codechat.domain.Forum;
+import codechat.domain.Message;
 import codechat.domain.Person;
 import codechat.repository.ForumRepository;
+import codechat.repository.MessageRepository;
 import codechat.repository.PersonRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ public class ForumService {
 
     @Autowired
     private ForumRepository forumRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     public String createForum(Model model, Forum forum, BindingResult bindingResult) {
         boolean hasErrors = false;
@@ -70,5 +75,16 @@ public class ForumService {
         }
         this.personRepository.save(admin);
         this.forumRepository.save(forum);
+    }
+
+    public void addMessageToForum(Message message, Forum forum) {
+        message.setForum(forum);
+
+        if (!forum.getMessages().contains(message)) {
+            forum.addMessage(message);
+        }
+
+        this.forumRepository.save(forum);
+        this.messageRepository.save(message);
     }
 }
