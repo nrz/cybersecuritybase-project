@@ -4,6 +4,17 @@
         <title>Codechat forum page</title>
     </head>
     <body>
-        <div>TODO write forum content</div>
+        <h1 th:if="${forum != null}" th:text="${forum.name}">Forum name</h1>
+        <div th:if="${forum != null}">
+            <div th:if="${forum.messages != null}">
+                <ul>
+                    <li th:each="message : ${forum.messages}">
+                        <span th:if="${message.timeString != null}" th:text="${message.timeString}">Message timestamp</span>
+                        <span th:if="${message.person.username != null}" th:text="${message.person.username}">Message sender</span>
+                        <span th:if="${message.text != null}" th:text="${message.text}">Message text</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </body>
 </html>
