@@ -1,8 +1,10 @@
 package codechat.controller;
 
 import codechat.domain.Forum;
+import codechat.domain.Message;
 import codechat.domain.Person;
 import codechat.repository.ForumRepository;
+import codechat.repository.MessageRepository;
 import codechat.repository.PersonRepository;
 import codechat.service.ForumService;
 import javax.annotation.PostConstruct;
@@ -29,6 +31,9 @@ public class DefaultController {
     @Autowired
     private ForumRepository forumRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
     @PostConstruct
     public void init() {
         if (this.personRepository.findByUsername("user1") == null) {
@@ -45,6 +50,13 @@ public class DefaultController {
             this.forumRepository.save(forum1);
 
             this.forumService.addMemberToForum(user1, forum1);
+
+            Message message1 = new Message();
+            message1.setText("Really?");
+            message1.setPerson(user1);
+            this.messageRepository.save(message1);
+
+            this.forumService.addMessageToForum(message1, forum1);
         }
 
         if (this.personRepository.findByUsername("user2") == null) {
