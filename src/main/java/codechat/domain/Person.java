@@ -23,11 +23,11 @@ public class Person extends AbstractPersistable<Long> {
 
     // Each Person may be an admin in many Forums and each Forum may have many admins.
     @ManyToMany
-    Collection<Forum> adminForums;
+    private Collection<Forum> adminForums;
 
     // Each Person may belong to many Forums and each Forum may have many Persons.
     @ManyToMany
-    Collection<Forum> memberForums;
+    private Collection<Forum> memberForums;
 
     // Each Person may belong to many FriendGroups, that is, s/he can be
     // a friend for many other Persons.
