@@ -11,6 +11,7 @@
             <br/>
 
             <div th:if="${forums != null}">
+                <h1>My forums</h1>
                 <ul>
                     <li th:each="forum : ${forums}">
                         <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
