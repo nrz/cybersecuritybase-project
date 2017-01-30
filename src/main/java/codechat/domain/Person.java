@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -28,6 +29,9 @@ public class Person extends AbstractPersistable<Long> {
     // Each Person may belong to many Forums and each Forum may have many Persons.
     @ManyToMany
     private Collection<Forum> memberForums;
+
+    @OneToMany
+    private Collection<Message> messages;
 
     // Each Person may belong to many FriendGroups, that is, s/he can be
     // a friend for many other Persons.
@@ -152,5 +156,23 @@ public class Person extends AbstractPersistable<Long> {
 
     public void setUserRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    public Collection<Message> getMessages() {
+        if (this.messages == null) {
+            this.messages = new ArrayList<>();
+        }
+        return this.messages;
+    }
+
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void addMessage(Message message) {
+        if (this.messages == null) {
+            this.messages = new ArrayList<>();
+        }
+        this.messages.add(message);
     }
 }
