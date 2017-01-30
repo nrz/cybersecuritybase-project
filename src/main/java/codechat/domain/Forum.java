@@ -26,7 +26,7 @@ public class Forum extends AbstractPersistable<Long> {
     private Collection<Person> forumMembers;
 
     @OneToMany
-    private List<Message> messages;
+    private Collection<Message> messages;
 
     public Forum() {
         this("New forum");
@@ -48,14 +48,14 @@ public class Forum extends AbstractPersistable<Long> {
         this.name = name;
     }
 
-    public List<Message> getMessages() {
+    public Collection<Message> getMessages() {
         if (this.messages == null) {
             this.messages = new ArrayList<>();
         }
         return this.messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(Collection<Message> messages) {
         this.messages = messages;
     }
 
