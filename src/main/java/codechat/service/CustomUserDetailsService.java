@@ -1,4 +1,4 @@
-package codechat.config;
+package codechat.service;
 
 import codechat.domain.Person;
 import codechat.repository.PersonRepository;
