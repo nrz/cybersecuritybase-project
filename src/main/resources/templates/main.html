@@ -14,7 +14,7 @@
                 <h1>My forums</h1>
                 <ul>
                     <li th:each="forum : ${forums}">
-                        <span th:if="${forum.name != null}" th:text="${forum.name}">Forum name</span>
+                        <a href="#" th:if="${forum.id != null}" th:href="@{~/forums/{id}(id=${forum.id})}" th:text="${forum.name}">Forum name</a>
                         <ul>
                             <li th:if="${forum.topic != null}" th:text="${forum.topic}">Forum topic</li>
                         </ul>
