@@ -7,6 +7,9 @@
 
     <body>
         <div th:if="${loggedInUser != null}">
+            <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
+            <br/>
+
             <div th:if="${friends != null}">
                 <h1>My friends</h1>
                 <ul>
@@ -24,7 +27,6 @@
                 <div><label>Friend's username<input type="text" name="name" autocomplete="off"/></label></div>
                 <div><label><button type="submit">Send a friend request</button></label></div>
             </form>
-            <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
             <br/>
 
             <div th:if="${forums != null}">
