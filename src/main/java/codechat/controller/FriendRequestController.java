@@ -44,8 +44,8 @@ public class FriendRequestController {
 
     @RequestMapping(value = "/friendrequests", method = RequestMethod.POST)
     public String addFriendRequest(Model model,
-            @ModelAttribute FriendRequest friendRequest,
+            @ModelAttribute("personTo") String personToString,
             BindingResult bindingResult) {
-        return this.friendRequestService.createFriendRequest(model, friendRequest, bindingResult);
+        return this.friendRequestService.createFriendRequest(model, personToString, bindingResult);
     }
 }

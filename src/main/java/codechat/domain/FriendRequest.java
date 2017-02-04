@@ -27,11 +27,11 @@ public class FriendRequest extends AbstractPersistable<Long> {
         this.personFrom = personFrom;
     }
 
-    public Person getTo() {
+    public Person getPersonTo() {
         return this.personTo;
     }
 
-    public void setTo(Person to) {
+    public void setPersonTo(Person to) {
         this.personTo = to;
     }
 

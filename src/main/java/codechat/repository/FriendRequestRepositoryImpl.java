@@ -21,7 +21,13 @@ public class FriendRequestRepositoryImpl implements FriendRequestRepositoryCusto
             return new ArrayList<>();
         }
 
-        return this.friendRequestRepository.findAll().stream().filter(friendRequest -> friendRequest.getTo().equals(person)).collect(Collectors.toList());
+        return this.friendRequestRepository
+                .findAll()
+                .stream()
+                .filter(friendRequest -> friendRequest != null)
+                .filter(friendRequest -> friendRequest.getPersonTo() != null)
+                .filter(friendRequest -> friendRequest.getPersonTo().equals(person))
+                .collect(Collectors.toList());
     }
 
     @Override

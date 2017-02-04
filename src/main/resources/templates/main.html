@@ -21,10 +21,20 @@
             </div>
             <br/>
 
+            <div th:if="${friendrequests != null and not friendrequests.isEmpty()}">
+                <h1>Received friend requests</h1>
+                <ul>
+                    <li th:each="friendrequest : ${friendrequests}">
+                        <a href="#" th:if="${friendrequest.id != null}" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.personFrom.username}">Friend request from</a>
+                        <a href="#" th:if="${friendrequest.id != null}" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.message}">Friend request message</a>
+                    </li>
+                </ul>
+            </div>
+
             <h1>Send a friend request using this form</h1>
 
             <form action="#" th:action="@{/friendrequests}" method="POST">
-                <div><label>Friend's username<input type="text" name="name" autocomplete="off"/></label></div>
+                <div><label>Friend's username<input type="text" name="personTo" autocomplete="off"/></label></div>
                 <div><label><button type="submit">Send a friend request</button></label></div>
             </form>
             <br/>

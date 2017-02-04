@@ -2,6 +2,7 @@ package codechat.controller;
 
 import codechat.domain.Person;
 import codechat.repository.ForumRepository;
+import codechat.repository.FriendRequestRepository;
 import codechat.service.PersonService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class PersonController {
     private PersonService personService;
 
     @Autowired
+    private FriendRequestRepository friendRequestRepository;
+
+    @Autowired
     private ForumRepository forumRepository;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -28,6 +32,7 @@ public class PersonController {
             model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
             model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
             model.addAttribute("friends", authenticatedPerson.getMyFriends());
+            model.addAttribute("friendrequests", this.friendRequestRepository.findByPersonTo(authenticatedPerson));
             model.addAttribute("forums", this.forumRepository.findByPerson(authenticatedPerson));
         }
         return "main";
