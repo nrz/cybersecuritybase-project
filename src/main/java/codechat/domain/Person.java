@@ -20,6 +20,8 @@ public class Person extends AbstractPersistable<Long> {
     @NotBlank(message = "Give a password")
     private String password;
 
+    private String email;
+
     private String userRole;
 
     // Each Person may be an admin in many Forums and each Forum may have many admins.
@@ -59,6 +61,17 @@ public class Person extends AbstractPersistable<Long> {
             this.username = "";
         }
         return this.username;
+    }
+
+    public String getEmail() {
+        if (this.email == null) {
+            this.email = "";
+        }
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

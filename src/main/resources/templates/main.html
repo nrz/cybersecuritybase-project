@@ -7,7 +7,8 @@
 
     <body>
         <div th:if="${loggedInUser != null}">
-            <span th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></span>
+            <div th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></div>
+            <div th:if="${email != null and not email.isEmpty()}" th:text="${email}">Email</div>
             <br/>
 
             <div th:if="${friends != null}">
@@ -86,6 +87,8 @@
                 <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</span>
                 <div><label>Password<input type="password" th:field="*{password}" name="password" autocomplete="off"/></label></div>
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</span>
+                <div><label>Email (optional)<input type="email" th:field="*{email}" name="email" autocomplete="off"/></label></div>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Password error message</span>
                 <div><label><button type="submit">Create user account</button></label></div>
             </form>
         </div>

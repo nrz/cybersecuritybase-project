@@ -30,6 +30,7 @@ public class PersonController {
         if (this.personService.getAuthenticatedPerson() != null) {
             Person authenticatedPerson = this.personService.getAuthenticatedPerson();
             model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
+            model.addAttribute("email", authenticatedPerson.getEmail());
             model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
             model.addAttribute("friends", authenticatedPerson.getMyFriends());
             model.addAttribute("friendrequests", this.friendRequestRepository.findByPersonTo(authenticatedPerson));
