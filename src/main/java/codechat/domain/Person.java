@@ -2,8 +2,10 @@ package codechat.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -38,10 +40,10 @@ public class Person extends AbstractPersistable<Long> {
     // Each Person may belong to many FriendGroups, that is, s/he can be
     // a friend for many other Persons.
     @ManyToMany(mappedBy = "friendsTo", fetch = FetchType.EAGER)
-    private Collection<Person> myFriends;
+    private Set<Person> myFriends;
 
     @ManyToMany
-    private Collection<Person> friendsTo;
+    private Set<Person> friendsTo;
 
     public Person() {
         this("", null);
@@ -52,8 +54,8 @@ public class Person extends AbstractPersistable<Long> {
         this.password = password;
         this.adminForums = new ArrayList<>();
         this.memberForums = new ArrayList<>();
-        this.myFriends = new ArrayList<>();
-        this.friendsTo = new ArrayList<>();
+        this.myFriends = new HashSet<>();
+        this.friendsTo = new HashSet<>();
     }
 
     public String getUsername() {
@@ -140,24 +142,29 @@ public class Person extends AbstractPersistable<Long> {
 
     public Collection<Person> getMyFriends() {
         if (this.myFriends == null) {
-            this.myFriends = new ArrayList<>();
+            this.myFriends = new HashSet<>();
         }
         return this.myFriends;
     }
 
-    public void setMyFriends(List<Person> friends) {
+    public void setMyFriends(Set<Person> friends) {
         this.myFriends = friends;
     }
 
     public Collection<Person> getFriendsTo() {
         if (this.friendsTo == null) {
-            this.friendsTo = new ArrayList<>();
+            this.friendsTo = new HashSet<>();
         }
         return this.friendsTo;
     }
 
-    public void setFriendsTo(List<Person> friends) {
+    public void setFriendsTo(Set<Person> friends) {
         this.friendsTo = friends;
+    }
+
+    public void addFriend(Person friend) {
+        this.myFriends.add(friend);
+        this.friendsTo.add(friend);
     }
 
     public String getUserRole() {
