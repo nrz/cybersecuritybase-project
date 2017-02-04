@@ -23,7 +23,7 @@ public class FriendRequestService {
     @Autowired
     private FriendRequestRepository friendRequestRepository;
 
-    public String createFriendRequest(Model model, String personToString, BindingResult bindingResult) {
+    public String createFriendRequest(Model model, String personToString, String message, BindingResult bindingResult) {
         boolean hasErrors = false;
 
         List<String> errors = new ArrayList<>();
@@ -57,6 +57,12 @@ public class FriendRequestService {
         FriendRequest friendRequest = new FriendRequest();
         friendRequest.setPersonTo(personTo);
         friendRequest.setPersonFrom(personFrom);
+
+        if (message == null) {
+            friendRequest.setMessage("");
+        } else {
+            friendRequest.setMessage(message);
+        }
 
         this.friendRequestRepository.save(friendRequest);
 
