@@ -5,6 +5,7 @@ import codechat.domain.Person;
 import codechat.repository.FriendRequestRepository;
 import codechat.repository.PersonRepository;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,59 @@ public class FriendRequestService {
         this.friendRequestRepository.save(friendRequest);
 
         // TODO: Redirect to the newly created friend request.
+        return "redirect:/main";
+    }
+
+    public String acceptFriendRequest(Long id) {
+        Person person = this.personService.getAuthenticatedPerson();
+        Collection<FriendRequest> friendRequests = this.friendRequestRepository.findByPersonTo(person);
+        FriendRequest friendRequest = this.friendRequestRepository.findOne(id);
+
+        if (friendRequest == null) {
+            // null friend request!
+            return "redirect:/main";
+        }
+
+        Person mePerson = friendRequest.getPersonTo();
+
+        if (!friendRequests.contains(friendRequest) || mePerson != friendRequest.getPersonTo()) {
+            // Not authorized to access this friend request!
+            return "redirect:/main";
+        }
+
+        // Accept the friend request.
+        Person otherPerson = friendRequest.getPersonFrom();
+        mePerson.addFriend(otherPerson);
+        otherPerson.addFriend(mePerson);
+        this.personRepository.save(mePerson);
+        this.personRepository.save(otherPerson);
+
+        // Delete the friend request.
+        this.friendRequestRepository.delete(id);
+
+        return "redirect:/main";
+    }
+
+    public String deleteFriendRequest(Long id) {
+        Person person = this.personService.getAuthenticatedPerson();
+        Collection<FriendRequest> friendRequests = this.friendRequestRepository.findByPersonTo(person);
+        FriendRequest friendRequest = this.friendRequestRepository.findOne(id);
+
+        if (friendRequest == null) {
+            // null friend request!
+            return "redirect:/main";
+        }
+
+        Person mePerson = friendRequest.getPersonTo();
+
+        if (!friendRequests.contains(friendRequest) || mePerson != friendRequest.getPersonTo()) {
+            // Not authorized to access this friend request!
+            return "redirect:/main";
+        }
+
+        // Delete the friend request.
+        this.friendRequestRepository.delete(id);
+
         return "redirect:/main";
     }
 }

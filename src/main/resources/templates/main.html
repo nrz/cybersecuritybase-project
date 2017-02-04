@@ -26,8 +26,16 @@
                 <h1>Received friend requests</h1>
                 <ul>
                     <li th:each="friendrequest : ${friendrequests}">
-                        <a href="#" th:if="${friendrequest.id != null}" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.personFrom.username}">Friend request from</a>
-                        <a href="#" th:if="${friendrequest.id != null}" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.message}">Friend request message</a>
+                        <div th:if="${friendrequest != null and friendrequest.id != null}">
+                            <a href="#" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.personFrom.username}">Friend request from</a>
+                            <a href="#" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.message}">Friend request message</a>
+                            <form action="#" th:action="@{~/friendrequests/{id}/accept(id=${friendrequest.id})}" method="POST">
+                                <label><button type="submit">Accept</button></label>
+                            </form>
+                            <form action="#" th:action="@{~/friendrequests/{id}/delete(id=${friendrequest.id})}" method="POST">
+                                <label><button type="submit">Delete request</button></label>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>

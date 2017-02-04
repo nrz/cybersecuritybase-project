@@ -37,7 +37,14 @@ public class FriendRequestController {
 
     @RequestMapping(value = "/friendrequests/{id}", method = RequestMethod.GET)
     public String getFriendRequest(Model model, @PathVariable Long id) {
+        Person person = this.personService.getAuthenticatedPerson();
+        Collection<FriendRequest> friendRequests = this.friendRequestRepository.findByPersonTo(person);
         FriendRequest friendRequest = this.friendRequestRepository.findOne(id);
+
+        if (!friendRequests.contains(friendRequest)) {
+            // Not authorized to access this friend request!
+            return "redirect:/friendrequests";
+        }
         model.addAttribute("friendrequest", friendRequest);
         return "friendrequests";
     }
@@ -48,5 +55,15 @@ public class FriendRequestController {
             @ModelAttribute("message") String message,
             BindingResult bindingResult) {
         return this.friendRequestService.createFriendRequest(model, personToString, message, bindingResult);
+    }
+
+    @RequestMapping(value = "/friendrequests/{id}/accept", method = RequestMethod.POST)
+    public String acceptFriendRequest(@PathVariable Long id) {
+        return this.friendRequestService.acceptFriendRequest(id);
+    }
+
+    @RequestMapping(value = "/friendrequests/{id}/delete", method = RequestMethod.POST)
+    public String deleteFriendRequest(@PathVariable Long id) {
+        return this.friendRequestService.deleteFriendRequest(id);
     }
 }
