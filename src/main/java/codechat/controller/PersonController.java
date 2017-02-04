@@ -27,6 +27,7 @@ public class PersonController {
             Person authenticatedPerson = this.personService.getAuthenticatedPerson();
             model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
             model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
+            model.addAttribute("friends", authenticatedPerson.getMyFriends());
             model.addAttribute("forums", this.forumRepository.findByPerson(authenticatedPerson));
         }
         return "main";
