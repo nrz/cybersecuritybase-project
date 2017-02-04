@@ -8,10 +8,10 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class FriendRequest extends AbstractPersistable<Long> {
 
     @ManyToOne
-    private Person from;
+    private Person personFrom;
 
     @ManyToOne
-    private Person to;
+    private Person personTo;
 
     private String message;
 
@@ -19,20 +19,20 @@ public class FriendRequest extends AbstractPersistable<Long> {
 
     }
 
-    public Person getFrom() {
-        return this.from;
+    public Person getPersonFrom() {
+        return this.personFrom;
     }
 
-    public void setFrom(Person from) {
-        this.from = from;
+    public void setPersonFrom(Person personFrom) {
+        this.personFrom = personFrom;
     }
 
     public Person getTo() {
-        return this.to;
+        return this.personTo;
     }
 
     public void setTo(Person to) {
-        this.to = to;
+        this.personTo = to;
     }
 
     public String getMessage() {
