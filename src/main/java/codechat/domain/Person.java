@@ -22,6 +22,8 @@ public class Person extends AbstractPersistable<Long> {
     @NotBlank(message = "Give a password")
     private String password;
 
+    private String unencryptedPassword;
+
     private String email;
 
     private String userRole;
@@ -194,5 +196,16 @@ public class Person extends AbstractPersistable<Long> {
             this.messages = new ArrayList<>();
         }
         this.messages.add(message);
+    }
+
+    public String getUnencryptedPassword() {
+        if (this.unencryptedPassword == null) {
+            this.unencryptedPassword = "";
+        }
+        return this.unencryptedPassword;
+    }
+
+    public void setUnencryptedPassword(String unencryptedPassword) {
+        this.unencryptedPassword = unencryptedPassword;
     }
 }

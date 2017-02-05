@@ -153,21 +153,22 @@ to `.antMatchers("/admin/**").hasAnyAuthority("ADMIN");` in file
 ### Vulnerability #5. A2-Broken Authentication And Session Management.
 
 Steps to reproduce:
- 1. Install Postman and Postman Interceptor.
- 2. Clean and build project.
- 3. Run project.
- 4. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
- 5. Click Postman icon in Chrome plugin row.
- 6. Turn Request Capture ON in Postman Interceptor.
- 7. Login as `user1` with password `foo`.
- 8. Click Postman icon in Chrome plugin row to see latest requests.
- 9. The unencrypted password was sent as a part of the URL in a GET
-    request:
-    `GET [http://127.0.0.1:8080/login?username=user1&password=foo](http://127.0.0.1:8080/login?username=user1&password=foo).
+ 1. Clean and build project.
+ 2. Run project.
+ 3. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
+ 4. Login as `user1` with password `foo`.
+ 5. Write in field "Friend's username" the string `user2`.
+ 6. Leave the message field empty, send the friend request.
+ 7. Logout.
+ 8. Login as `user2` with password `bar`.
+ 9. Accept the friend request from `user1` by clicking `Accept`.
+10. Click on link `user1`.
+11. The password is visible on the URL.
 
-How to fix: change the line `<form action="#" th:action="@{/login}" method="GET">`
-in `main.html` to `<form action="#" th:action="@{/login}" method="POST">` in file
-[src/main/resources/templates/main.html](src/main/resources/templates/main.html).
+How to fix: Remove all calls to the method `setUnencryptedPassword` of
+the `Person` class. Reverting the commit 13cab0013b783e71be4ae5aabe2ec12610ab156e
+works too and removes a lot of junk code only needed for this broken
+authentication.
 
 My code: copyright (C) 2017 Antti Nuortimo. License is GPL3, or (at your option),
 any later version. See [COPYING](copying) file for license.
