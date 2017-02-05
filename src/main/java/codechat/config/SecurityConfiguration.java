@@ -22,8 +22,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Enable CSRF (for h2 console!). This is a vulnerability!
-        http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
 
         // Person pages only for authenticated users.
