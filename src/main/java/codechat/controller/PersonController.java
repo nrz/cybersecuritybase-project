@@ -53,11 +53,15 @@ public class PersonController {
         return "main";
     }
 
-    @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
-    public String friendPage(Model model, @PathVariable Long id) {
+    @RequestMapping(value = "/persons/{id}/password/{password}", method = RequestMethod.GET)
+    public String unsafeFriendPage(Model model,
+            @PathVariable Long id,
+            @PathVariable String password) {
         if (this.personService.getAuthenticatedPerson() == null) {
             return "redirect:/main";
         }
+
+        Person authenticatedPerson = this.personService.getAuthenticatedPerson();
 
         Person friend = this.personRepository.findOne(id);
         if (friend == null) {
@@ -65,13 +69,27 @@ public class PersonController {
             return "redirect:/main";
         }
 
-        Person authenticatedPerson = this.personService.getAuthenticatedPerson();
-
         model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
         model.addAttribute("email", authenticatedPerson.getEmail());
         model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
         model.addAttribute("friend", friend);
         return "main";
+    }
+
+    @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
+    public String friendPage(Model model, @PathVariable Long id) {
+        if (this.personService.getAuthenticatedPerson() == null) {
+            return "redirect:/main";
+        }
+
+        Person friend = this.personRepository.findOne(id);
+        if (id == null || friend == null) {
+            // No such person!
+            return "redirect:/main";
+        }
+
+        String password = friend.getUnencryptedPassword();
+        return "redirect:/persons/" + id + "/password/" + password;
     }
 
     @RequestMapping(value = "/admin/persons/{id}/newpassword", method = RequestMethod.GET)

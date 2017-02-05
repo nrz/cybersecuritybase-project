@@ -52,6 +52,8 @@ public class PersonService {
 
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(person.getUsername(), person.getPassword());
 
+        person.setUnencryptedPassword(person.getPassword());
+
         // Set the bcrypt-encrypted password.
         person.setPassword(this.passwordEncoder.encode(person.getPassword()));
         person.setUserRole("USER");
