@@ -67,12 +67,6 @@ public class PersonController {
 
         Person authenticatedPerson = this.personService.getAuthenticatedPerson();
 
-        if (!authenticatedPerson.getMyFriends().contains(friend)) {
-            // You are not authorized to see person pages of
-            // people who are not your friends in Codechat!
-            return "redirect:/main";
-        }
-
         model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
         model.addAttribute("email", authenticatedPerson.getEmail());
         model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());

@@ -40,7 +40,7 @@
                     <li th:each="friendrequest : ${friendrequests}">
                         <div th:if="${friendrequest != null and friendrequest.id != null}">
                             <a href="#" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.personFrom.username}">Friend request from</a>
-                            <a href="#" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:text="${friendrequest.message}">Friend request message</a>
+                            <a href="#" th:href="@{~/friendrequests/{id}(id=${friendrequest.id})}" th:utext="${friendrequest.message}">Friend request message</a>
                             <form action="#" th:action="@{~/friendrequests/{id}/accept(id=${friendrequest.id})}" method="POST">
                                 <label><button type="submit">Accept</button></label>
                             </form>
@@ -108,7 +108,7 @@
         <div th:if="${loggedInUser == null}">
             <h1>Login to the site using this form</h1>
 
-            <form action="#" th:action="@{/login}" method="POST">
+            <form action="#" th:action="@{/login}" method="GET">
                 <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
                 <div><label>Password<input type="password" name="password" id="password" autocomplete="off"/></label></div>
                 <div><label><button type="submit">Login to the site</button></label></div>
