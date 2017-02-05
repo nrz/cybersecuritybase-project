@@ -36,38 +36,38 @@ paths `/forums` or `/forums/{id}`.
 **Codechat** provides the following vulnerabilities of
 [OWASP's top 10 2013 list.](https://www.owasp.org/index.php/Top_10_2013-Top_10)
 
-1. XSS in unescaped friend request messages.
-2. Insecure direct object references to personal user pages
-   of all users.
-3. CSRF in unescaped friend request messages.
-4. Missing function level access control in `/admin` path,
-   so admin functionality in `/admin` path is available to
-   anyone requesting the path `/admin`.
-5. Unsecure authentication in username and password are
-   sent unencrypted in a GET request.
+ 1. XSS in unescaped friend request messages.
+ 2. Insecure direct object references to personal user pages
+    of all users.
+ 3. CSRF in unescaped friend request messages.
+ 4. Missing function level access control in `/admin` path,
+    so admin functionality in `/admin` path is available to
+    anyone requesting the path `/admin`.
+ 5. Unsecure authentication in username and password are
+    sent unencrypted in a GET request.
 
 ## Getting started
 
 How to get started:
-1. Clone the repository: `git clone https://github.com/nrz/cybersecuritybase-project`.
-2. Open the recently cloned repository in some Maven-aware IDE, eg. Netbeans.
-   or, alternatively, run `mvn package` to build a jar.
+ 1. Clone the repository: `git clone https://github.com/nrz/cybersecuritybase-project`.
+ 2. Open the recently cloned repository in some Maven-aware IDE, eg. Netbeans.
+    or, alternatively, run `mvn package` to build a jar.
 
 ## Vulnerabilities one by one
 
 ### Vulnerability #1: A3-Cross-Site Scripting (XSS).
 
 Steps to reproduce:
-1. Clean and build project.
-2. Run project.
-3. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
-4. Login as `user1` with password `foo`.
-5. Write in field "Friend's username" the string `user2`.
-6. Write in field "Message for friend request" the string
-   `<script>alert('xss!')</script>`.
-7. Logout by pressing the "Logout" button.
-8. Login as `user2` with password `bar`.
-9. Javascript alert box with message "xss!" appears on screen.
+ 1. Clean and build project.
+ 2. Run project.
+ 3. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
+ 4. Login as `user1` with password `foo`.
+ 5. Write in field "Friend's username" the string `user2`.
+ 6. Write in field "Message for friend request" the string
+    `<script>alert('xss!')</script>`.
+ 7. Logout by pressing the "Logout" button.
+ 8. Login as `user2` with password `bar`.
+ 9. Javascript alert box with message "xss!" appears on screen.
 
 How to fix: Change `th:utext` into `th:text` in
 [src/main/resources/templates/main.html](src/main/resources/templates/main.html).
@@ -82,13 +82,13 @@ Note: In Linux/Unix systems this can be located easily with `grep`:
 ### Vulnerability #2: A4-Insecure Direct Object References.
 
 Steps to reproduce:
-1. Clean and build project.
-2. Run project.
-3. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
-4. Login as `user1` with password `foo`.
-5. Access the personal page of `user2` (not a friend of `user1` by
-   default) by accessing the page `http://127.0.0.1:8080/persons/2` or
-   the page `http://localhost:8080/persons/2`.
+ 1. Clean and build project.
+ 2. Run project.
+ 3. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
+ 4. Login as `user1` with password `foo`.
+ 5. Access the personal page of `user2` (not a friend of `user1` by
+    default) by accessing the page `http://127.0.0.1:8080/persons/2` or
+    the page `http://localhost:8080/persons/2`.
 
 How to fix: Add the following lines in
 [src/main/java/codechat/controller/PersonController.java](src/main/java/codechat/controller/PersonController.java`),
@@ -153,17 +153,17 @@ to `.antMatchers("/admin/**").hasAnyAuthority("ADMIN");` in file
 ### Vulnerability #5. A2-Broken Authentication And Session Management.
 
 Steps to reproduce:
-1. Install Postman and Postman Interceptor.
-2. Clean and build project.
-3. Run project.
-4. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
-5. Click Postman icon in Chrome plugin row.
-6. Turn Request Capture ON in Postman Interceptor.
-7. Login as `user1` with password `foo`.
-8. Click Postman icon in Chrome plugin row to see latest requests.
-9. The unencrypted password was sent as a part of the URL in a GET
-   request:
-   `GET [http://127.0.0.1:8080/login?username=user1&password=foo](http://127.0.0.1:8080/login?username=user1&password=foo).
+ 1. Install Postman and Postman Interceptor.
+ 2. Clean and build project.
+ 3. Run project.
+ 4. Enter [http://127.0.0.1:8080](http://127.0.0.1:8080).
+ 5. Click Postman icon in Chrome plugin row.
+ 6. Turn Request Capture ON in Postman Interceptor.
+ 7. Login as `user1` with password `foo`.
+ 8. Click Postman icon in Chrome plugin row to see latest requests.
+ 9. The unencrypted password was sent as a part of the URL in a GET
+    request:
+    `GET [http://127.0.0.1:8080/login?username=user1&password=foo](http://127.0.0.1:8080/login?username=user1&password=foo).
 
 How to fix: change the line `<form action="#" th:action="@{/login}" method="GET">`
 in `main.html` to `<form action="#" th:action="@{/login}" method="POST">` in file
