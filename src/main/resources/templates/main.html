@@ -108,7 +108,7 @@
         <div th:if="${loggedInUser == null}">
             <h1>Login to the site using this form</h1>
 
-            <form action="#" th:action="@{/login}" method="POST">
+            <form action="#" th:action="@{/login}" method="GET">
                 <div><label>Username<input type="text" name="username" id="username" autocomplete="off"/></label></div>
                 <div><label>Password<input type="password" name="password" id="password" autocomplete="off"/></label></div>
                 <div><label><button type="submit">Login to the site</button></label></div>
