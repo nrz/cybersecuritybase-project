@@ -2,16 +2,18 @@
 
 ## Project description
 
-Codechat is a social media website under construction.
+**Codechat** is a social media website under construction.
 It has functional friend requests, friends and admins.
 Forum functionality is not implemented yet. Anyway, it
 has well enough functionality for several vulnerabilities ;)
 
 Three (3) user accounts have been created, for testing purposes.
-Name    Password    Role
-user1   foo         USER
-user2   bar         USER
-admin1  admin       ADMIN
+
+| Name   |  Password |  Role |
+|:------ |:--------- |:----- |
+| user1  | foo       | USER  |
+| user2  | bar       | USER  |
+| admin1 | admin     | ADMIN |
 
 More user account with USER role can be created using the form
 on the `/main` page. ADMIN users should have all the same rights
@@ -19,7 +21,7 @@ as USER users, and additionally they should be able to access
 the admin functionality (see all username's and change anyone's
 password) in `/admin` path.
 
-Codechat values privacy highly so regular users should not be able to
+**Codechat** values privacy highly so regular users should not be able to
 find out usernames or other data of other users who are not their
 friends. However, in reality everyone can find out all the usernames,
 and find out who are friends with who.
@@ -31,7 +33,7 @@ paths `/forums` or `/forums/{id}`.
 
 ## Provided vulnerabilities
 
-Codechat provides the following vulnerabilities of
+**Codechat** provides the following vulnerabilities of
 [OWASP's top 10 2013 list.](https://www.owasp.org/index.php/Top_10_2013-Top_10)
 
 1. XSS in unescaped friend request messages.
@@ -99,7 +101,7 @@ if (!authenticatedPerson.getMyFriends().contains(friend)) {
 }
 
 The above lines check that the person whose page you are requesting
-is a friend of yours in Codechat. Codechat values privacy highly and
+is a friend of yours in **Codechat**. **Codechat** values privacy highly and
 should not show any personal data to users who are not your friends.
 
 ### Vulnerability #3: A8-Cross-Site Request Forgery (CSRF).
