@@ -166,9 +166,14 @@ Steps to reproduce:
 11. The password is visible on the URL.
 
 How to fix: Remove all calls to the method `setUnencryptedPassword` of
-the `Person` class. Reverting the commit 13cab0013b783e71be4ae5aabe2ec12610ab156e
-works too and removes a lot of junk code only needed for this broken
-authentication.
+the `Person` class. There are calls to `setUnencryptedPassword` in the
+following files:
+[src/main/java/codechat/controller/DefaultController.java](src/main/java/codechat/controller/DefaultController.java),
+[src/main/java/codechat/service/PersonService.java](src/main/java/codechat/service/PersonService.java).
+
+Reverting the commit 13cab0013b783e71be4ae5aabe2ec12610ab156e
+works too and removes all the junk code only needed for this broken
+authentication. So you can do: `git revert 13cab0013b783e71be4ae5aabe2ec12610ab156e`.
 
 My code: copyright (C) 2017 Antti Nuortimo. License is GPL3, or (at your option),
 any later version. See [COPYING](copying) file for license.
