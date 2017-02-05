@@ -7,6 +7,18 @@
 
     <body>
         <div th:if="${loggedInUser != null}">
+            <div th:if="${admin != null and isOnAdminPage == null}">
+                <a href="#" th:href="@{/admin}">Admin page (here be dragons)</a>
+                <br/>
+            </div>
+
+            <div th:if="${admin != null and isOnAdminPage != null}" th:text="'You are now the admin page. Caution is advised.'">Warning message for admins</div>
+            <ul th:if="${users != null and not users.isEmpty()}">
+                <li th:each="user : ${users}">
+                    <a href="#" th:if="${user.id != null and user.username != null and not user.username.isEmpty()}" th:href="@{~/admin/persons/{id}/newpassword(id=${user.id})}" th:text="${'Change password for user: ' + user.username}">Message for admin</a>
+                </li>
+            </ul>
+            <br/>
             <div th:if="${loggedInMessage != null}" th:text="${loggedInMessage}"></div>
             <div th:if="${email != null and not email.isEmpty()}" th:text="${email}">Email</div>
             <br/>

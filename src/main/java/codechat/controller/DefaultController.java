@@ -68,6 +68,15 @@ public class DefaultController {
             user2.setUserRole("USER");
             this.personRepository.save(user2);
         }
+
+        if (this.personRepository.findByUsername("admin1") == null) {
+            Person admin1 = new Person();
+            admin1.setUsername("admin1");
+            admin1.setPassword(this.passwordEncoder.encode("admin"));
+            admin1.setEmail("admin1@example.com");
+            admin1.setUserRole("ADMIN");
+            this.personRepository.save(admin1);
+        }
     }
 
     @RequestMapping("*")

@@ -24,6 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().sameOrigin();
 
+        // Admin pages only for admins.
+        http.authorizeRequests()
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN");
+
         // Person pages only for authenticated users.
         http.authorizeRequests()
                 .antMatchers("/persons/**").hasAnyAuthority("USER");
