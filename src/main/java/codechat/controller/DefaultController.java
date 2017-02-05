@@ -81,6 +81,6 @@ public class DefaultController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm() {
-        return "form";
+        return "redirect:/main";
     }
 }
