@@ -1,3 +1,7 @@
+# Codechat
+
+## Project description
+
 Codechat is a social media website under construction.
 It has functional friend requests, friends and admins.
 Forum functionality is not implemented yet. Anyway, it
@@ -25,6 +29,8 @@ However, of course it's possible you to find some vulnerabilities there
 too, but there are no designed vulnerabilities related to requests of
 paths `/forums` or `/forums/{id}`.
 
+## Provided vulnerabilities
+
 Codechat provides the following vulnerabilities of
 [OWASP's top 10 2013 list.](https://www.owasp.org/index.php/Top_10_2013-Top_10)
 
@@ -38,12 +44,16 @@ Codechat provides the following vulnerabilities of
 5. Unsecure authentication in username and password are
    sent unencrypted in a GET request.
 
+## Getting started
+
 How to get started:
 1. Clone the repository: `git clone https://github.com/nrz/cybersecuritybase-project`.
 2. Open the recently cloned repository in some Maven-aware IDE, eg. Netbeans.
    or, alternatively, run `mvn package` to build a jar.
 
-Vulnerability #1: A3-Cross-Site Scripting (XSS).
+## Vulnerabilities one by one
+
+### Vulnerability #1: A3-Cross-Site Scripting (XSS).
 
 Steps to reproduce:
 1. Clean and build project.
@@ -67,7 +77,7 @@ fix XSS only after testing and fixing CSRF.
 Note: In Linux/Unix systems this can be located easily with `grep`:
 `grep -R '\<th:utext\>'`.
 
-Vulnerability #2: A4-Insecure Direct Object References.
+### Vulnerability #2: A4-Insecure Direct Object References.
 
 Steps to reproduce:
 1. Clean and build project.
@@ -92,7 +102,7 @@ The above lines check that the person whose page you are requesting
 is a friend of yours in Codechat. Codechat values privacy highly and
 should not show any personal data to users who are not your friends.
 
-Vulnerability #3: A8-Cross-Site Request Forgery (CSRF).
+### Vulnerability #3: A8-Cross-Site Request Forgery (CSRF).
 
 Steps to reproduce:
  1. Make sure that you have not fixed the vulnerability #1
@@ -116,7 +126,7 @@ Steps to reproduce:
 How to fix: delete the command `http.csrf().disable();` from
 [src/main/java/codechat/config/SecurityConfiguration.java](src/main/java/codechat/config/SecurityConfiguration.java).
 
-Vulnerability #4: A7-Missing Function Level Access Control.
+### Vulnerability #4: A7-Missing Function Level Access Control.
 
 Steps to reproduce:
  1. Clean and build project.
@@ -138,7 +148,7 @@ How to fix: change the line `.antMatchers("/admin/**").hasAnyAuthority("USER");`
 to `.antMatchers("/admin/**").hasAnyAuthority("ADMIN");` in file
 [src/main/java/codechat/config/SecurityConfiguration.java](src/main/java/codechat/config/SecurityConfiguration.java).
 
-Vulnerability #5. A2-Broken Authentication And Session Management.
+### Vulnerability #5. A2-Broken Authentication And Session Management.
 
 Steps to reproduce:
 1. Install Postman and Postman Interceptor.
