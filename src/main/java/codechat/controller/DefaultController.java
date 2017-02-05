@@ -41,6 +41,7 @@ public class DefaultController {
             Person user1 = new Person();
             user1.setUsername("user1");
             user1.setPassword(this.passwordEncoder.encode("foo"));
+            user1.setEmail("user1@example.com");
             user1.setUserRole("USER");
             this.personRepository.save(user1);
 
@@ -63,6 +64,7 @@ public class DefaultController {
             Person user2 = new Person();
             user2.setUsername("user2");
             user2.setPassword(this.passwordEncoder.encode("bar"));
+            user2.setEmail("user2@example.com");
             user2.setUserRole("USER");
             this.personRepository.save(user2);
         }
