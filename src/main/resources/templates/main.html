@@ -15,7 +15,7 @@
                 <h1>My friends</h1>
                 <ul>
                     <li th:each="friend : ${friends}">
-                        <a href="#" th:if="${friend.id != null}" th:href="@{~/friends/{id}(id=${friend.id})}" th:text="${friend.username}">Friend username</a>
+                        <a href="#" th:if="${friend.id != null}" th:href="@{~/persons/{id}(id=${friend.id})}" th:text="${friend.username}">Friend username</a>
                     </li>
                 </ul>
                 <span th:if="${friends == null or friends.isEmpty()}" th:text="'You don\'t have any friends in Codechat yet! Please send some friend requests :)'"></span>
