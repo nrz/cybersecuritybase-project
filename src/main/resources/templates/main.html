@@ -40,6 +40,22 @@
                 </ul>
             </div>
 
+            <div th:if="${friend != null and friend.username != null and not friend.username.isEmpty()}">
+                <h1>Friend page (confidential, for friends only) :)</h1>
+                <span>Name of friend: </span>
+                <span th:text="${friend.username}">Username of friend</span>
+                <br/>
+                <span th:if="${friend.myFriends != null and not friend.myFriends.isEmpty()}">Friends of </span>
+                <span th:if="${friend.myFriends != null and not friend.myFriends.isEmpty()}" th:text="${friend.username}">Friends of friend</span>
+                <ul th:if="${friend.myFriends != null and not friend.myFriends.isEmpty()}">
+                    <li th:each="friendOfFriend : ${friend.myFriends}">
+                        <a href="#" th:if="${friendOfFriend.id != null}" th:href="@{~/persons/{id}(id=${friendOfFriend.id})}" th:text="${friendOfFriend.username}">Friend of friend username</a>
+                    </li>
+                </ul>
+                <span th:if="${friend.myFriends == null or friend.myFriends.isEmpty()}" th:text="${friend.username}"></span>
+                <span th:if="${friend.myFriends == null or friend.myFriends.isEmpty()}" th:text="' does not have any friends in Codechat yet! :('"></span>
+            </div>
+
             <h1>Send a friend request using this form</h1>
 
             <form action="#" th:action="@{/friendrequests}" method="POST">
@@ -96,6 +112,7 @@
                 <div><label>Password<input type="password" th:field="*{password}" name="password" autocomplete="off"/></label></div>
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</span>
                 <div><label>Email (optional)<input type="email" th:field="*{email}" name="email" autocomplete="off"/></label></div>
+                <div>Your email will be not be shared with anyone.</div>
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Password error message</span>
                 <div><label><button type="submit">Create user account</button></label></div>
             </form>

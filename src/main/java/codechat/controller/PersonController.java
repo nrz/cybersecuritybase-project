@@ -3,6 +3,7 @@ package codechat.controller;
 import codechat.domain.Person;
 import codechat.repository.ForumRepository;
 import codechat.repository.FriendRequestRepository;
+import codechat.repository.PersonRepository;
 import codechat.service.PersonService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +20,9 @@ public class PersonController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @Autowired
     private FriendRequestRepository friendRequestRepository;
@@ -36,6 +41,33 @@ public class PersonController {
             model.addAttribute("friendrequests", this.friendRequestRepository.findByPersonTo(authenticatedPerson));
             model.addAttribute("forums", this.forumRepository.findByPerson(authenticatedPerson));
         }
+        return "main";
+    }
+
+    @RequestMapping(value = "/persons/{id}", method = RequestMethod.GET)
+    public String friendPage(Model model, @PathVariable Long id) {
+        if (this.personService.getAuthenticatedPerson() == null) {
+            return "redirect:/main";
+        }
+
+        Person friend = this.personRepository.findOne(id);
+        if (friend == null) {
+            // No such person!
+            return "redirect:/main";
+        }
+
+        Person authenticatedPerson = this.personService.getAuthenticatedPerson();
+
+        if (!authenticatedPerson.getMyFriends().contains(friend)) {
+            // You are not authorized to see person pages of
+            // people who are not your friends in Codechat!
+            return "redirect:/main";
+        }
+
+        model.addAttribute("loggedInUser", authenticatedPerson.getUsername());
+        model.addAttribute("email", authenticatedPerson.getEmail());
+        model.addAttribute("loggedInMessage", "You are logged in as " + authenticatedPerson.getUsername());
+        model.addAttribute("friend", friend);
         return "main";
     }
 
