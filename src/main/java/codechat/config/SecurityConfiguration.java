@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // Admin pages only for admins.
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN");
+                .antMatchers("/admin/**").hasAnyAuthority("USER");
 
         // Person pages only for authenticated users.
         http.authorizeRequests()
